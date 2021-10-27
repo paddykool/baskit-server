@@ -1,0 +1,26 @@
+version: '3.4'
+services:
+    nodeserver:
+        build:
+            context: ./server
+        ports:
+            - '5000:5000'
+    nginx:
+        restart: always
+        build:
+            context: ./nginx
+        ports:
+            - '80:80'
+
+# version: '3.4'
+
+# services:
+#   baskitserver:
+#     image: baskitserver
+#     build:
+#       context: app
+#       dockerfile: ./Dockerfile
+#     environment:
+#       NODE_ENV: production
+#     ports:
+#       - 3000:3000
