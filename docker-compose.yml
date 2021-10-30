@@ -11,6 +11,8 @@ services:
             context: ./nginx
         ports:
             - '80:80'
+        volumes:
+            - ../nginx/auth:/etc/nginx/auth/
 
 # version: '3.4'
 
