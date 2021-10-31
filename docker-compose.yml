@@ -13,7 +13,6 @@ services:
             - '80:80'
         volumes:
             - ../nginx/auth:/etc/nginx/auth/
-            - ../nginx-ssl/certbot/conf/live/baskit.dev:/etc/nginx/auth/ssl/
 
 # version: '3.4'
 
