@@ -1,4 +1,5 @@
 const { Builder, By, Capabilities, Key, until } = require("selenium-webdriver");
+const Chrome = require("selenium-webdriver/chrome");
 
 const getDetails = async (url) => {
   itemData = {
@@ -7,23 +8,35 @@ const getDetails = async (url) => {
     price: "Not found",
   };
 
-  var chromeCapabilities = Capabilities.chrome();
-  //setting chrome options
-  var chromeOptions = {
-    args: ["--no-sandbox", "--disable-dev-shm-usage", "--disable-gpu"],
-  };
-  chromeCapabilities.set("chromeOptions", chromeOptions);
+  var options = new Chrome.Options();
+  options.addArguments(
+    "--disable-infobars",
+    "--proxy-server=http://proxy.proxy-cheap.com:31112"
+  );
+  options.addExtensions(
+    "/usr/src/selenium/ChromeExtension/chrome_extension.zip"
+  );
 
   let driver = await new Builder()
     .forBrowser("chrome")
-    .withCapabilities(chromeCapabilities)
+    .setChromeOptions(options)
     .build();
+
+    // Playing with timeouts...
+    const TIMEOUT = 60000
+    await driver
+      .manage()
+      .setTimeouts({ implicit: TIMEOUT, pageLoad: TIMEOUT, script: TIMEOUT });
+    console.info(await driver.manage().getTimeouts());
+
   try {
     console.log(`Navigating to supplied url: ${url}`);
+    console.log(Date.now());
     await driver.get(url);
 
     // Find the title of the item
     console.log("Trying to get header...");
+    console.log(Date.now());
     h1List = await driver.findElements(By.xpath("h1"));
     // assign the first h1 found to the title
     itemData["title"] = h1List[0];
@@ -43,7 +56,6 @@ const getDetails = async (url) => {
       )
     );
     itemData["price"] = priceElement.getText();
-    
   } catch (e) {
     console.log(`There was an error.... ${e}`);
   } finally {
