@@ -10,12 +10,12 @@ const getDetails = async (url) => {
 
   var options = new Chrome.Options();
   options.addArguments(
-    "--disable-infobars"
-    // "--proxy-server=http://proxy.proxy-cheap.com:31112"
+    "--disable-infobars",
+    "--proxy-server=http://proxy.proxy-cheap.com:31112"
   );
-  // options.addExtensions(
-  //   "/usr/src/selenium/ChromeExtension/chrome_extension.zip"
-  // );
+  options.addExtensions(
+    "/usr/src/selenium/ChromeExtension/chrome_extension.zip"
+  );
 
   let driver = await new Builder()
     .forBrowser("chrome")
