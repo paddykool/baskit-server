@@ -1,8 +1,9 @@
-version: '3.4'
+version: '3.5'
 services:
     nodeserver:
         build:
             context: ./server
+        shm_size: '256m'
         ports:
             - '5000:5000'
     nginx:
@@ -16,6 +17,10 @@ services:
             - ../nginx/auth:/etc/nginx/auth/
 
 # version: '3.4'
+
+# TODO: Should I use environment here ? NODE_END ?
+# Plan will be to have 2 env's, dev and prod
+
 
 # services:
 #   baskitserver:
