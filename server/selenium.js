@@ -46,7 +46,7 @@ const getDetails = async (url) => {
     var imageElement = await driver.findElement(
       By.xpath("//*[@id='ShotView']/img")
     );
-    itemData["imageURL"] = imageElement.getAttribute("src");
+    itemData["imageURL"] = await imageElement.getAttribute("src");
 
     // Find the price
     console.log("Trying to get price...");
@@ -55,7 +55,7 @@ const getDetails = async (url) => {
         "#Style589780 > section > div.Price > div.nowPrice.branded-markdown > span"
       )
     );
-    itemData["price"] = priceElement.getText();
+    itemData["price"] = await priceElement.getText();
   } catch (e) {
     console.log(`There was an error.... ${e}`);
   } finally {
