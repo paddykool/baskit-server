@@ -37,9 +37,11 @@ const getDetails = async (url) => {
     // Find the title of the item
     console.log("Trying to get header...");
     console.log(Date.now());
-    h1List = await driver.findElements(By.xpath("h1"));
+    var h1List = await driver.findElements(By.xpath("h1"));
     // assign the first h1 found to the title
-    itemData["title"] = h1List[0];
+    console.log('lenght of h1 array')
+    console.log()
+    itemData["title"] = await h1List[0].getText();
 
     // Find the imageURL of the element
     console.log("Trying to get image URL...");
