@@ -10,12 +10,12 @@ const getDetails = async (url) => {
 
   var options = new Chrome.Options();
   options.addArguments(
-    "--disable-infobars",
-    "--proxy-server=http://proxy.proxy-cheap.com:31112"
+    "--disable-infobars"
+    // "--proxy-server=http://proxy.proxy-cheap.com:31112"
   );
-  options.addExtensions(
-    "/usr/src/selenium/ChromeExtension/chrome_extension.zip"
-  );
+  // options.addExtensions(
+  //   "/usr/src/selenium/ChromeExtension/chrome_extension.zip"
+  // );
 
   let driver = await new Builder()
     .forBrowser("chrome")
@@ -26,7 +26,7 @@ const getDetails = async (url) => {
     const TIMEOUT = 60000
     await driver
       .manage()
-      .setTimeouts({ implicit: TIMEOUT, pageLoad: TIMEOUT, script: TIMEOUT });
+      .setTimeouts({ pageLoad: TIMEOUT });
     console.info(await driver.manage().getTimeouts());
 
   try {
